@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Model\Category;
 use Auth;
 
@@ -38,11 +39,7 @@ class CategoryController extends Controller
         return view('backend.category.add-category', compact('editData'));
     }
 
-    public function update(Request $request, $id){
-
-        $validatedData = $request->validate([
-            'name' => 'required|unique:categories'
-        ]);
+    public function update(CategoryRequest $request, $id){
 
         $category = Category::find($id);
         $category->name = $request->name;
