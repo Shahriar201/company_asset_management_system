@@ -51,22 +51,6 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete', 'Backend\CategoryController@delete')->name('categories.delete');
     });
 
-    Route::prefix('products')->group(function(){
-
-        Route::get('/view', 'Backend\ProductController@view')->name('products.view');
-        Route::get('/add', 'Backend\ProductController@add')->name('products.add');
-        Route::post('/store', 'Backend\ProductController@store')->name('products.store');
-        Route::get('/edit/{id}', 'Backend\ProductController@edit')->name('products.edit');
-        Route::post('/update/{id}', 'Backend\ProductController@update')->name('products.update');
-        Route::post('/delete', 'Backend\ProductController@delete')->name('products.delete');
-    });
-
-    // Get Category By Ajax
-    Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
-    Route::get('/get-product', 'Backend\DefaultController@getProduct')->name('get-product');
-
-    Route::get('/get/stock', 'Backend\DefaultController@getStock')->name('check-product-stock');
-
     Route::prefix('stock')->group(function(){
 
         Route::get('/report', 'Backend\StockController@stockReport')->name('stock.report');
@@ -77,5 +61,11 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/report/product/wise/pdf', 'Backend\StockController@ProductWisePdf')->name('stock.report.product.wise.pdf');
 
     });
+
+    // Get Category By Ajax
+    Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
+    Route::get('/get-product', 'Backend\DefaultController@getProduct')->name('get-product');
+
+    Route::get('/get/stock', 'Backend\DefaultController@getStock')->name('check-product-stock');
 
 });
