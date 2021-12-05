@@ -26,27 +26,51 @@ class CategoryController extends Controller
         ]);
 
         $category = new Category();
-        $category->name = $request->name;
-        $category->created_by = Auth::user()->id;
-        $category->save();
 
-        return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
+        $response = $category->data_store($request);
+
+        if ($response) {
+            return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
+        }
+
+        // $category = new Category();
+        // $category->name = $request->name;
+        // $category->created_by = Auth::user()->id;
+        // $category->save();
+
+        // return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
     }
 
     public function edit($id){
-        $editData = Category::find($id);
+
+        $data_id = decrypt($id);
+
+        $editData = Category::find($data_id);
 
         return view('backend.category.add-category', compact('editData'));
     }
 
     public function update(CategoryRequest $request, $id){
 
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->updated_by = Auth::user()->id;
-        $category->save();
+        // $validatedData = $request->validate([
+        //     'name' => 'required|unique:categories'
+        // ]);
 
-        return redirect()->route('categories.view')->with('success', 'Data updated successfully');
+        // dd($request->all());
+        $category = new Category();
+
+        $response = $category->update_category($request, $id);
+
+        if ($response) {
+            return redirect()->route('categories.view')->with('success', 'Data updated successfully');
+        }
+
+        // $category = Category::find($id);
+        // $category->name = $request->name;
+        // $category->updated_by = Auth::user()->id;
+        // $category->save();
+
+        // return redirect()->route('categories.view')->with('success', 'Data updated successfully');
 
     }
 

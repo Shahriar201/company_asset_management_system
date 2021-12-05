@@ -67,7 +67,7 @@
                                         @endphp --}}
 
                                         <td>
-                                            <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('categories.edit', $category->id)}}">
+                                            <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('categories.edit', encrypt($category->id))}}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
