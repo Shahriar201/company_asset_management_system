@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            
+
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
@@ -55,9 +55,9 @@
                                         <select name="user_type" id="user_type" class="form-control">
                                             <option value="">Select Role</option>
                                             <option value="Admin">Admin</option>
-                                            <option value="User">User</option>
+                                            <option value="Employee">Employee</option>
                                         </select>
-                               </div>  
+                               </div>
 
                                 <div class="form-group col-md-4">
                                     <label for="name">Name</label>
@@ -66,7 +66,7 @@
                                       {{($errors->has('name'))?($errors->first('name')):''}}
                                   </font>
                                 </div>
-                    
+
                                 <div class="form-group col-md-4">
                                     <label for="email">Email</label>
                                     <input type="email" name="email" class="form-control">
@@ -88,12 +88,12 @@
                                 <div class="form-group col-md-6">
                                     <input type="submit" value="submit" class="btn btn-primary">
                                 </div>
-                            </div>    
-                              
-                              
+                            </div>
+
+
                           </form>
 
-                            
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -113,7 +113,7 @@
 <!-- Page specific script -->
 <script>
     $(function () {
-      
+
       $('#myForm').validate({
         rules: {
           name: {
