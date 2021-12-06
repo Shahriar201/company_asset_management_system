@@ -26,19 +26,11 @@ class CategoryController extends Controller
         ]);
 
         $category = new Category();
+        $category->name = $request->name;
+        $category->created_by = Auth::user()->id;
+        $category->save();
 
-        $response = $category->data_store($request);
-
-        if ($response) {
-            return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
-        }
-
-        // $category = new Category();
-        // $category->name = $request->name;
-        // $category->created_by = Auth::user()->id;
-        // $category->save();
-
-        // return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
+        return redirect()->route('categories.view')->with('success', 'Data inserted successfully');
     }
 
     public function edit($id){
@@ -52,25 +44,12 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, $id){
 
-        // $validatedData = $request->validate([
-        //     'name' => 'required|unique:categories'
-        // ]);
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->updated_by = Auth::user()->id;
+        $category->save();
 
-        // dd($request->all());
-        $category = new Category();
-
-        $response = $category->update_category($request, $id);
-
-        if ($response) {
-            return redirect()->route('categories.view')->with('success', 'Data updated successfully');
-        }
-
-        // $category = Category::find($id);
-        // $category->name = $request->name;
-        // $category->updated_by = Auth::user()->id;
-        // $category->save();
-
-        // return redirect()->route('categories.view')->with('success', 'Data updated successfully');
+        return redirect()->route('categories.view')->with('success', 'Data updated successfully');
 
     }
 
