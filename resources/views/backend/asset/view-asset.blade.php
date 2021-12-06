@@ -57,24 +57,24 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($allData as $key => $category)
+                                    @foreach ($allData as $key => $asset)
 
-                                    <tr class="{{ $category->id }}">
+                                    <tr class="{{ $asset->id }}">
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $asset->name }}</td>
+                                        <td>{{ $asset->category }}</td>
 {{--
                                         @php
                                             $count_category = App\Model\Product::where('category_id', $category->id)->count();
                                         @endphp --}}
 
                                         <td>
-                                            <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('categories.edit', encrypt($category->id))}}">
+                                            <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('assets.edit', $asset->id)}}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
 
                                             {{-- @if ($count_category<1) --}}
-                                                <a title="Delete" id="delete" class="btn btn-sm btn-danger" href="{{ route('categories.delete') }}" data-token="{{ csrf_token() }}" data-id="{{ $category->id }}">
+                                                <a title="Delete" id="delete" class="btn btn-sm btn-danger" href="{{ route('assets.delete') }}" data-token="{{ csrf_token() }}" data-id="{{ $asset->id }}">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             {{-- @endif --}}

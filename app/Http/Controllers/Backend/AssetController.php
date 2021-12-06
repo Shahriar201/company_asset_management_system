@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssetRequest;
 use Illuminate\Http\Request;
 use App\Model\Asset;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,7 @@ class AssetController extends Controller
 
         $asset = new Asset();
         $asset->name = $request->name;
+        $asset->category = $request->category;
         $asset->created_by = Auth::user()->id;
         $asset->save();
 
@@ -34,28 +36,27 @@ class AssetController extends Controller
 
     public function edit($id){
 
-        $data_id = decrypt($id);
+        $editData = Asset::find($id);
 
-        $editData = Category::find($data_id);
-
-        return view('backend.category.add-category', compact('editData'));
+        return view('backend.asset.add-asset', compact('editData'));
     }
 
-    public function update(CategoryRequest $request, $id){
+    public function update(AssetRequest $request, $id){
 
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->updated_by = Auth::user()->id;
-        $category->save();
+        $asset = Asset::find($id);
+        $asset->name = $request->name;
+        $asset->category = $request->category;
+        $asset->updated_by = Auth::user()->id;
+        $asset->save();
 
         return redirect()->route('assets.view')->with('success', 'Data updated successfully');
 
     }
 
     public function delete(Request $request){
-        $category = Category::find($request->id);
-        $category->delete();
+        $asset = Asset::find($request->id);
+        $asset->delete();
 
-        return redirect()->route('categories.view')->with('success', 'Data deleted successfully');
+        return redirect()->route('assets.view')->with('success', 'Data deleted successfully');
     }
 }
