@@ -71,6 +71,16 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete', 'Backend\AssetController@delete')->name('assets.delete');
     });
 
+    Route::prefix('allocates')->group(function(){
+
+        Route::get('/view', 'Backend\AllocateController@view')->name('allocates.view');
+        Route::get('/add', 'Backend\AllocateController@add')->name('allocates.add');
+        Route::post('/store', 'Backend\AllocateController@store')->name('allocates.store');
+        Route::get('/edit/{id}', 'Backend\AllocateController@edit')->name('allocates.edit');
+        Route::post('/update/{id}', 'Backend\AllocateController@update')->name('allocates.update');
+        Route::post('/delete', 'Backend\AllocateController@delete')->name('allocates.delete');
+    });
+
     // Get Category By Ajax
     Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
     Route::get('/get-product', 'Backend\DefaultController@getProduct')->name('get-product');
