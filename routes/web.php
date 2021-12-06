@@ -51,15 +51,24 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/delete', 'Backend\CategoryController@delete')->name('categories.delete');
     });
 
-    Route::prefix('stock')->group(function(){
+    Route::prefix('employees')->group(function(){
 
-        Route::get('/report', 'Backend\StockController@stockReport')->name('stock.report');
-        Route::get('/report/download/pdf', 'Backend\StockController@stockReportPdf')->name('stock.report.pdf');
+        Route::get('/view', 'Backend\EmployeeController@view')->name('employees.view');
+        Route::get('/add', 'Backend\EmployeeController@add')->name('employees.add');
+        Route::post('/store', 'Backend\EmployeeController@store')->name('employees.store');
+        Route::get('/edit/{id}', 'Backend\EmployeeController@edit')->name('employees.edit');
+        Route::post('/update/{id}', 'Backend\EmployeeController@update')->name('employees.update');
+        Route::post('/delete', 'Backend\EmployeeController@delete')->name('employees.delete');
+    });
 
-        Route::get('/report/supplier/product/wise', 'Backend\StockController@SupplierProductWise')->name('stock.report.supplier.product.wise');
-        Route::get('/report/supplier/wise/pdf', 'Backend\StockController@SupplierWisePdf')->name('stock.report.supplier.wise.pdf');
-        Route::get('/report/product/wise/pdf', 'Backend\StockController@ProductWisePdf')->name('stock.report.product.wise.pdf');
+    Route::prefix('assets')->group(function(){
 
+        Route::get('/view', 'Backend\AssetController@view')->name('assets.view');
+        Route::get('/add', 'Backend\AssetController@add')->name('assets.add');
+        Route::post('/store', 'Backend\AssetController@store')->name('assets.store');
+        Route::get('/edit/{id}', 'Backend\AssetController@edit')->name('assets.edit');
+        Route::post('/update/{id}', 'Backend\AssetController@update')->name('assets.update');
+        Route::post('/delete', 'Backend\AssetController@delete')->name('assets.delete');
     });
 
     // Get Category By Ajax

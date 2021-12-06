@@ -9,13 +9,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Manage Product Stock</h1>
+                    <h1 class="m-0">Manage Assets</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Product Stock</li>
+                        <li class="breadcrumb-item active">Asset</li>
                     </ol>
                 </div>
                 <!-- /.col -->
@@ -29,7 +29,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            
+
             <!-- Main row -->
             <div class="row">
                 <!-- Left col -->
@@ -37,10 +37,10 @@
                     <!-- Custom tabs (Charts with tabs)-->
                     <div class="card">
                         <div class="card-header">
-                            <h3>Product Stock List
-                                <a class="btn btn-success float-right btn-sm" href="{{ route('stock.report.pdf') }}" target="_blank">
-                                    <i class="fa fa-download"></i>Download Stock PDF</a>
-                                
+                            <h3>Asset List
+                                <a class="btn btn-success float-right btn-sm" href="{{ route('assets.add') }}">
+                                    <i class="fa fa-plus-circle"></i>Add Asset</a>
+
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -50,40 +50,43 @@
                                 <thead>
                                     <tr>
                                         <th>SL.</th>
-                                        <th>Supplier Name</th>
+                                        <th>Name</th>
                                         <th>Category</th>
-                                        <th>Product Name</th>
-                                        <th>In Quantity</th>
-                                        <th>Out Quantity</th>
-                                        <th>Current Stock</th>
-                                        <th>Unit</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($allData as $key => $product)
+                                    @foreach ($allData as $key => $category)
 
-                                    @php
-                                        $buying_total = App\Model\Purchase::where('category_id', $product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('buying_qty');
-                                        $selling_total = App\Model\InvoiceDetail::where('category_id', $product->category_id)->where('product_id', $product->id)->where('status', '1')->sum('selling_qty');
-                                    @endphp
-
-                                    <tr class="{{ $product->id }}">
+                                    <tr class="{{ $category->id }}">
                                         <td>{{ $key+1 }}</td>
-                                        <td>{{ $product['supplier']['name'] }}</td>
-                                        <td>{{ $product['category']['name'] }}</td>
-                                        <td>{{ $product->name }}</td>
-                                        <td>{{ $buying_total }}</td>
-                                        <td>{{ $selling_total }}</td>
-                                        <td>{{ $product->quantity }}</td>
-                                        <td>{{ $product['unit']['name'] }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->name }}</td>
+{{--
+                                        @php
+                                            $count_category = App\Model\Product::where('category_id', $category->id)->count();
+                                        @endphp --}}
+
+                                        <td>
+                                            <a title="Edit" id="edit" class="btn btn-sm btn-primary" href="{{ route('categories.edit', encrypt($category->id))}}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+
+                                            {{-- @if ($count_category<1) --}}
+                                                <a title="Delete" id="delete" class="btn btn-sm btn-danger" href="{{ route('categories.delete') }}" data-token="{{ csrf_token() }}" data-id="{{ $category->id }}">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            {{-- @endif --}}
+
+                                        </td>
                                     </tr>
-                                        
+
                                     @endforeach
-                                    
+
                                 </tbody>
                             </table>
-                            
+
                         </div>
                         <!-- /.card-body -->
                     </div>
